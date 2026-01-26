@@ -8,15 +8,7 @@
   ],
   "routes": [
     {
-      "src": "/user/(.*)",
-      "dest": "Backend/index.js"
-    },
-    {
-      "src": "/blog/(.*)",
-      "dest": "Backend/index.js"
-    },
-    {
-      "src": "/images/(.*)",
+      "src": "/(.*)",
       "dest": "Backend/index.js"
     }
   ]
