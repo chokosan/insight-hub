@@ -4,7 +4,7 @@ import cloudinary from 'cloudinary'
 
 export const allblogs =async(req,res)=>{
     try {
-        const blogs = await Blog.find({}).sort({createdAt :-1})
+        const blogs = await Blog.find({}).sort({createdAt: -1})
           return res.status(200).json({blogs,success:true,message:"all blogs"})
     } catch (error) {
         return res.status(500).json({message :'internal server error'})
