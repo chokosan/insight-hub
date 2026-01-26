@@ -144,6 +144,7 @@ const Dashboard = () => {
   init={{
     height: 400,
     menubar: false,
+    telemetry: false,
     plugins: [
       "advlist", "autolink", "lists", "link", "image",
       "charmap", "preview", "anchor", "searchreplace",
