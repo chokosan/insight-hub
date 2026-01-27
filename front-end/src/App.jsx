@@ -9,7 +9,7 @@ import Signup from './Pages/Signup'
 import Singleblog from './Pages/Singleblog'
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
- import { ToastContainer, toast } from 'react-toastify';
+ import { ToastContainer } from 'react-toastify';
 import Dashboard from './Pages/Dashboard'
   
 

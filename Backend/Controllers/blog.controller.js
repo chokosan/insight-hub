@@ -52,7 +52,6 @@ export const createBlog = async (req, res) => {
         });
 
     } catch (error) {
-        console.error(error); 
         return res.status(500).json({ message: error.message, success: false });
     }
 }
@@ -73,7 +72,6 @@ export const deleteBlog = async(req,res)=>{
         await blog.deleteOne()
         return res.status(200).json({message :'blog deleted successfully', success: true})
     } catch (error) {
-        console.error(error);
         return res.status(500).json({message: error.message, success: false})
     }
 }

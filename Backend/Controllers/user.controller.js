@@ -18,25 +18,21 @@ export const register = async (req, res) => {
         let image = { public_id: "", url: "" };
 
         if (req.file) {
-            console.log('File received:', req.file.originalname);
             try {
                 const imageFile = getDataUri(req.file);
-                console.log('Uploading to Cloudinary...');
                 const myCloud = await cloudinary.v2.uploader.upload(imageFile.content, {
                     folder: "users",
                 });
-                console.log('Upload successful:', myCloud.secure_url);
                 image = {
                     public_id: myCloud.public_id,
                     url: myCloud.secure_url,
                 };
             } catch (uploadError) {
-                console.error('Cloudinary upload error:', uploadError);
                 // Continue without image or return error
                 return res.status(500).json({ message: "Failed to upload image", success: false });
             }
         } else {
-            console.log('No file received');
+            // Continue without image if not provided
         }
 
         const user = await User.create({
@@ -52,7 +48,6 @@ export const register = async (req, res) => {
 
         res.status(201).json({ message: "User created successfully", user: userResponse, success: true });
     } catch (error) {
-        console.error("Registration Error:", error);
         res.status(500).json({ message: "Internal server error", success: false });
     }
 }
@@ -79,7 +74,6 @@ export const login = async (req, res) => {
         res.status(200).json({ message: "Login successful", user: userResponse, token, success: true });
 
     } catch (error) {
-    console.log("DETAILED ERROR:", error.message)
     res.status(500).json({ message: "Internal server error", success: false });
 }
 }
