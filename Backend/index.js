@@ -26,12 +26,7 @@ const __dirname = path.dirname(__filename);
 //middlewares
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({
-    origin: "*",
-    credentials: false
-}));
-
-
+app.use(cors());
 
 //api endpoint
 app.use('/images', express.static(path.join(__dirname, 'Middlewares', 'uploads')));
