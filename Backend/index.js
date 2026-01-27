@@ -27,8 +27,8 @@ const __dirname = path.dirname(__filename);
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: process.env.VITE_FRONT_BASE_URL,
-    credentials: true
+    origin: "*",
+    credentials: false
 }));
 
 
