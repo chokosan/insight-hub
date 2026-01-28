@@ -39,17 +39,36 @@ app.use('/user',userRoutes)
 app.use('/blog',blogRoutes)
 
 
+let isConnected = false;
+const connectToDatabase = async () => {
+    if (isConnected) return;
+    try {
+        await connectionDB();
+        isConnected = true;
+        console.log("MongoDB Connected");
+    } catch (error) {
+        console.error("DB Connection Error:", error);
+        throw error;
+    }
+};
 
 
-module.exports = app; 
+app.use(async (req, res, next) => {
+    try {
+        await connectToDatabase();
+        next();
+    } catch (error) {
+        res.status(500).json({ error: "Database connection failed", details: error.message });
+    }
+});
+
 
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 4000;
     app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
-        connectionDB();
     });
-} else {
-   
-    connectionDB();
 }
+
+
+export default app;
