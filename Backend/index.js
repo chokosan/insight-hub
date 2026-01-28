@@ -28,9 +28,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: "https://insight-hub-1ian.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true
 }));
+
+app.options('*', cors());
 
 //api endpoint
 app.use('/images', express.static(path.join(__dirname, 'Middlewares', 'uploads')));
