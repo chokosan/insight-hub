@@ -27,15 +27,12 @@ const __dirname = path.dirname(__filename);
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-    origin: "https://insight-hub-1ian.vercel.app",
-    credentials: true
+  origin: [
+    "http://localhost:3000",
+    "https://insight-hub-1ian.vercel.app"
+  ],
+  credentials: true
 }));
-
-
-//api endpoint
-app.use('/images', express.static(path.join(__dirname, 'Middlewares', 'uploads')));
-app.use('/user',userRoutes)
-app.use('/blog',blogRoutes)
 
 
 let isConnected = false;
@@ -50,6 +47,13 @@ const connectToDatabase = async () => {
         throw error;
     }
 };
+
+//api endpoint
+app.use('/user',userRoutes)
+app.use('/blog',blogRoutes)
+
+
+
 
 
 app.use(async (req, res, next) => {
