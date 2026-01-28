@@ -7,9 +7,12 @@ export const allblogs =async(req,res)=>{
         const blogs = await Blog.find({}).sort({createdAt: -1})
           return res.status(200).json({blogs,success:true,message:"all blogs"})
     } catch (error) {
-        return res.status(500).json({message :'internal server error'})
-    }
-}
+  console.error("ALL BLOGS ERROR:", error);
+  return res.status(500).json({
+    message: "internal server error",
+    error: error.message
+  });
+}}
 
 export const createBlog = async (req, res) => {
     try {
