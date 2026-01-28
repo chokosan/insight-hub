@@ -27,11 +27,9 @@ const __dirname = path.dirname(__filename);
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: [
-    'https://insight-hub-1ian-6z5deny8e-maira-amjads-projects.vercel.app',
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+    origin: "https://insight-hub-1ian.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true
 }));
 
 //api endpoint
