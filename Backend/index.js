@@ -25,13 +25,13 @@ if (
 }
 
 
-const app=express()
+const app = express()
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 //middlewares
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: [
@@ -44,40 +44,36 @@ app.use(cors({
 
 let isConnected = false;
 const connectToDatabase = async () => {
-    if (isConnected) return;
-    try {
-        await connectionDB();
-        isConnected = true;
-        console.log("MongoDB Connected");
-    } catch (error) {
-        console.error("DB Connection Error:", error);
-        throw error;
-    }
+  if (isConnected) return;
+  try {
+    await connectionDB();
+    isConnected = true;
+    console.log("MongoDB Connected");
+  } catch (error) {
+    console.error("DB Connection Error:", error);
+    throw error;
+  }
 };
 
-//api endpoint
-app.use('/user',userRoutes)
-app.use('/blog',blogRoutes)
-
-
-
-
-
 app.use(async (req, res, next) => {
-    try {
-        await connectToDatabase();
-        next();
-    } catch (error) {
-        res.status(500).json({ error: "Database connection failed", details: error.message });
-    }
+  try {
+    await connectToDatabase();
+    next();
+  } catch (error) {
+    res.status(500).json({ error: "Database connection failed", details: error.message });
+  }
 });
+
+//api endpoint
+app.use('/user', userRoutes)
+app.use('/blog', blogRoutes)
 
 
 if (process.env.NODE_ENV !== 'production') {
-    const PORT = process.env.PORT || 4000;
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 }
 
 
